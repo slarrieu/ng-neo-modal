@@ -1,6 +1,6 @@
 {
   "name": "ng-neo-modal",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/neocomplexx/ng-neo-modal"
@@ -10,7 +10,7 @@
     "email": "info@neocomplexx.com"
   },
   "keywords": [
-    "angular"
+    "angular","ngx", "modal"
   ],
   "license": "MIT",
   "bugs": {
@@ -21,10 +21,11 @@
   "jsnext:main": "ng-neo-modal.js",
   "typings": "ng-neo-modal.d.ts",
   "peerDependencies": {
-    "@angular/core": "^4.0.0",
-    "rxjs": "^5.1.0",
+    "@angular/core": "^5.0.0",
+    "@angular/forms": "^5.0.0",
+    "rxjs": "^5.5.2",
     "zone.js": "^0.8.4",
-    "@ng-bootstrap/ng-bootstrap": "1.0.0-beta.1",
-    "loadash": "^4.17.10"
+    "@ng-bootstrap/ng-bootstrap": "1.1.2",
+    "lodash": "^4.17.10"
   }
 }
