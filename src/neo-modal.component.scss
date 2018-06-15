@@ -900,13 +900,12 @@ body {
   }
   
 
-
-button.close {
-  /deep/ {
-	position: absolute;
-	right: 0px;
-  padding: 10px;
-  }
+  button.close {
+    /deep/ {
+    position: absolute;
+    right: 20px;
+    padding: 10px;
+    }
 }
 
 
