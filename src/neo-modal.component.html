@@ -32,7 +32,7 @@
     <h4 *ngIf='config.title.visibility'>{{config.title.text}}</h4>
     <p>{{config.message}}</p>
     <div class="form-group">
-      <input #myInput *ngIf='config.input.visibility' class="swal-content__input" [(ngModel)]="config.input.value" placeholder={{config.input.placeholder}}
+      <input #myInput *ngIf='config.input.visibility' class="form-control" [(ngModel)]="config.input.value" placeholder={{config.input.placeholder}}
         type='text'>
     </div>
   </div>

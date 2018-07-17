@@ -10,19 +10,17 @@ export class NeoModalService {
   public originalAlert: any;
 
   constructor(private modalService: NgbModal) {
-    const that: NeoModalService = this;
-
     this.originalAlert = window.alert;
-    window.alert = async function(msg) {
-      await that.alert(msg);
+    window.alert = async (msg) => {
+      await this.alert(msg);
     }
   }
 
   private async openModal(config: any): Promise<any> {
     const modalRef = this.modalService.open(NeoModalComponent, {
-      backdrop : 'static',
-      keyboard : false,
-      windowClass : 'neoWindow'
+      backdrop: 'static',
+      keyboard: false,
+      windowClass: 'neoWindow'
     });
 
     modalRef.componentInstance = _.merge(modalRef.componentInstance.config, config);
@@ -32,13 +30,13 @@ export class NeoModalService {
   }
 
 
-   /**
-   *
-   * Show message. Can be use as window.alert
-   * @param {string} msg Mensaje a mostrar
-   * @returns {Promise<void>}
-   * @memberof AlertService
-   */
+  /**
+  *
+  * Show message. Can be use as window.alert
+  * @param {string} msg Mensaje a mostrar
+  * @returns {Promise<void>}
+  * @memberof AlertService
+  */
   public async alert(msg: string): Promise<void> {
 
     const config = {
@@ -78,13 +76,13 @@ export class NeoModalService {
     return this.openModal(config);
   }
 
-   /**
-   *
-   * Warning message
-   * @param {string} msg Message
-   * @returns {Promise<AlertResult>}
-   * @memberof AlertService
-   */
+  /**
+  *
+  * Warning message
+  * @param {string} msg Message
+  * @returns {Promise<AlertResult>}
+  * @memberof AlertService
+  */
   public async warning(msg: string): Promise<AlertResult> {
     const config = {
       title: {
@@ -102,13 +100,13 @@ export class NeoModalService {
     return this.openModal(config);
   }
 
-    /**
-   *
-   * Error message
-   * @param {string} msg Message
-   * @returns {Promise<AlertResult>}
-   * @memberof AlertService
-   */
+  /**
+ *
+ * Error message
+ * @param {string} msg Message
+ * @returns {Promise<AlertResult>}
+ * @memberof AlertService
+ */
   public async error(msg: string): Promise<AlertResult> {
     const config = {
       title: {
@@ -157,7 +155,7 @@ export class NeoModalService {
    * @returns {Promise<AlertResult>} Promise based in user choise
    * @memberof AlertService
    */
-  public async decision(questionMsg: string, successMsg: string, cancelMsg: string): Promise<AlertResult> {
+  public async decision(questionMsg: string, successMsg?: string, cancelMsg?: string): Promise<AlertResult> {
 
     const config = {
       title: {
@@ -166,19 +164,20 @@ export class NeoModalService {
       message: questionMsg,
       type: 'question'
     }
-    const that: NeoModalService = this;
 
     return this.openModal(config)
-    .then( (value) => {
-      if (value.ButtonResponse === AlertButton.Accept)  {
-        if (successMsg !== '') {
-          that.success(successMsg);
+      .then((value) => {
+        if (value.ButtonResponse === AlertButton.Accept) {
+          if (successMsg) {
+            this.success(successMsg);
+          }
+        } else {
+          if (cancelMsg) {
+            this.info(cancelMsg);
+          }
         }
-      }else {
-        that.info(cancelMsg);
-      }
-      return Promise.resolve(value);
-    })
+        return Promise.resolve(value);
+      })
 
   }
 
@@ -191,7 +190,7 @@ export class NeoModalService {
    * @returns {Promise<AlertResult>} Promise with user input
    * @memberof AlertService
    */
-  public async input(title: string, placeholder: string, successMsg: string): Promise<AlertResult> {
+  public async input(title: string, placeholder: string, successMsg?: string): Promise<AlertResult> {
     const config = {
       title: {
         text: title
@@ -202,17 +201,16 @@ export class NeoModalService {
         visibility: true
       }
     }
-    const that: NeoModalService = this;
 
-   return this.openModal(config)
-     .then((value) => {
-      if (value.ButtonResponse === AlertButton.Accept)  {
-        if (successMsg) {
-          that.success(successMsg);
+    return this.openModal(config)
+      .then((value) => {
+        if (value.ButtonResponse === AlertButton.Accept) {
+          if (successMsg) {
+           this.success(successMsg);
+          }
         }
-      }
-      return Promise.resolve(value);
-    })
+        return Promise.resolve(value);
+      })
 
 
 
@@ -220,10 +218,10 @@ export class NeoModalService {
 
   public async yesNoCancel(title: string, message: string, buttonFocus: AlertButton): Promise<AlertResult> {
 
-     return this.custom(title, message, (AlertButton.Yes | AlertButton.No | AlertButton.Cancel), AlertButton.No);
-   }
+    return this.custom(title, message, (AlertButton.Yes | AlertButton.No | AlertButton.Cancel), AlertButton.No);
+  }
 
-   private async custom(title: string, message: string, buttons: AlertButton, buttonFocus: AlertButton): Promise<AlertResult> {
+  private async custom(title: string, message: string, buttons: AlertButton, buttonFocus: AlertButton): Promise<AlertResult> {
     const buttonAccept: boolean = (buttons & AlertButton.Accept) > 0;
     const buttonYes: boolean = (buttons & AlertButton.Yes) > 0;
     const buttonCancel: boolean = (buttons & AlertButton.Cancel) > 0;
@@ -267,7 +265,7 @@ export class NeoModalService {
 
 
     return this.openModal(config);
-   }
+  }
 
 
 
